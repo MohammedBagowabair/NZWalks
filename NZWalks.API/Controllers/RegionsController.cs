@@ -9,6 +9,7 @@ using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
+using System.Text.Json;
 
 namespace NZWalks.API.Controllers
 {
@@ -30,22 +31,13 @@ namespace NZWalks.API.Controllers
         //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetAll()
         {
-            var regionsDomainModel= await regionRepository.GetAllAsync();
+            
 
-            //var regionsDto = new List<RegionDto>();
+            var regionsDomainModel = await regionRepository.GetAllAsync();
+            //throw new Exception("region controller error");
 
-            //foreach(var region in regionsDomainModel)
-            //{
-            //    regionsDto.Add(new RegionDto()
-            //    {
-            //        Id=region.Id,
-            //        Name=region.Name,
-            //        Code=region.Code,
-            //        RegionImageUrl=region.RegionImageUrl
-            //    });
-            //}
-            var regionsDto= mapper.Map<List<RegionDto>>(regionsDomainModel);
-            return Ok(regionsDto);
+            return Ok(mapper.Map<List<RegionDto>>(regionsDomainModel));
+        
         }
 
 
